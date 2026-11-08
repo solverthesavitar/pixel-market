@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101114">
+  <title>Pixel Market — Beli ruang di kanvas</title>
+  <style>
+    :root{color-scheme:dark;--bg:#101114;--panel:#191a20;--muted:#a3a5b1;--text:#f7f7fa;--accent:#b7f36b;--line:#30313a;--pink:#ff8fba}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}button,input{font:inherit}button{cursor:pointer}.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px max(22px,calc((100vw - 1180px)/2));border-bottom:1px solid var(--line)}.brand{font-weight:850;font-size:20px;letter-spacing:-.7px}.brand span{color:var(--accent)}.top-note{color:var(--muted);font-size:13px}.wrap{max-width:1180px;margin:auto;padding:36px 22px 60px}.hero{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:26px}.eyebrow{color:var(--accent);font-size:12px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase}.hero h1{font-size:clamp(32px,5vw,54px);line-height:1.05;letter-spacing:-2px;margin:9px 0 10px}.hero p{margin:0;color:var(--muted);max-width:600px}.price-tag{flex:none;padding:13px 17px;border:1px solid #536a3b;background:#20291a;border-radius:14px;text-align:right}.price-tag strong{display:block;color:var(--accent);font-size:22px}.price-tag small{color:var(--muted)}.layout{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(290px,.8fr);gap:20px;align-items:start}.panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;overflow:hidden}.panel-head{padding:17px 19px;display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid var(--line)}.panel-head h2{font-size:16px;margin:0}.tools{display:flex;align-items:center;gap:8px}.tool-btn{border:1px solid var(--line);background:#22232a;color:var(--text);border-radius:9px;padding:6px 11px}.zoom-label{color:var(--muted);font-size:12px;min-width:42px;text-align:center}.canvas-scroll{height:min(68vh,660px);min-height:360px;overflow:auto;background:#111216;display:flex;align-items:flex-start;justify-content:flex-start;padding:18px}.canvas-scroll.center{justify-content:center;align-items:center}canvas{display:block;max-width:none;image-rendering:pixelated;border-radius:4px;box-shadow:0 8px 36px #0008;cursor:crosshair}.canvas-foot{display:flex;justify-content:space-between;gap:12px;padding:12px 18px;color:var(--muted);font-size:12px;border-top:1px solid var(--line)}.legend{display:flex;align-items:center;gap:7px}.dot{width:10px;height:10px;border-radius:3px;background:var(--accent)}.side{display:grid;gap:16px}.box{padding:19px}.box h2{font-size:17px;margin:0 0 5px}.muted{color:var(--muted);font-size:13px;margin:0 0 16px}.coord-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field label{display:block;color:var(--muted);font-size:12px;margin-bottom:6px}.field input{width:100%;padding:11px 12px;color:var(--text);background:#111216;border:1px solid var(--line);border-radius:10px;outline:none}.field input:focus{border-color:var(--accent)}.primary{width:100%;border:0;border-radius:11px;padding:12px 15px;background:var(--accent);color:#18200e;font-weight:850;margin-top:12px}.primary:hover{filter:brightness(1.06)}.summary{display:flex;justify-content:space-between;gap:12px;padding:9px 0;color:var(--muted);font-size:14px}.summary strong{color:var(--text)}.total{border-top:1px solid var(--line);margin-top:5px;padding-top:14px;font-size:16px}.total strong{color:var(--accent);font-size:20px}.selection-list{max-height:155px;overflow:auto;display:flex;flex-wrap:wrap;gap:7px;margin:12px 0}.chip{padding:5px 8px;border:1px solid #435632;background:#20291a;color:#d9f8b4;border-radius:7px;font-size:11px}.empty{color:var(--muted);font-size:13px;padding:10px 0}.notice{font-size:12px;color:var(--muted);background:#22232a;padding:11px;border-radius:10px;margin-top:14px}.notice b{color:#fff}.how{padding:17px 19px}.how h3{margin:0 0 10px;font-size:14px}.how ol{margin:0;padding-left:19px;color:var(--muted);font-size:13px}.how li+li{margin-top:6px}.footer{text-align:center;color:var(--muted);font-size:12px;padding:26px 15px;border-top:1px solid var(--line)}.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#f7f7fa;color:#15161a;padding:10px 15px;border-radius:10px;box-shadow:0 8px 30px #0008;transition:.2s;z-index:5}.toast.show{opacity:1;transform:translate(-50%,0)}
+    @media(max-width:820px){.layout{grid-template-columns:1fr}.hero{align-items:flex-start;flex-direction:column}.price-tag{text-align:left}.canvas-scroll{height:55vh;min-height:300px}.top-note{display:none}}
+  </style>
+</head>
+<body>
+  <header class="topbar"><div class="brand">PIXEL<span>MARKET</span></div><div class="top-note">Kanvas milik bersama. Satu pixel, satu tempat.</div></header>
+  <main class="wrap">
+    <section class="hero"><div><div class="eyebrow">Kanvas digital 1000 × 1000</div><h1>Jadikan pixel-mu<br>bagian dari kanvas.</h1><p>Pilih koordinat yang kamu suka. Setiap kotak kecil adalah satu pixel yang bisa kamu pesan.</p></div><div class="price-tag"><strong>Rp1.000 <small style="font-size:14px">/ pixel</small></strong><small>Harga tetap, tanpa biaya tersembunyi</small></div></section>
+    <section class="layout">
+      <div class="panel">
+        <div class="panel-head"><h2>Kanvas Pixel Market</h2><div class="tools"><button class="tool-btn" id="zoomOut" aria-label="Perkecil">−</button><span class="zoom-label" id="zoomLabel">60%</span><button class="tool-btn" id="zoomIn" aria-label="Perbesar">+</button><button class="tool-btn" id="fit">Pas</button></div></div>
+        <div class="canvas-scroll center" id="canvasScroll"><canvas id="art" width="1000" height="1000" aria-label="Kanvas 1000 kali 1000 pixel"></canvas></div>
+        <div class="canvas-foot"><span class="legend"><i class="dot"></i> Pilihanmu</span><span id="coords">Klik kanvas untuk memilih pixel</span></div>
+      </div>
+      <aside class="side">
+        <div class="panel box"><h2>Pilih pixel</h2><p class="muted">Klik kanvas atau masukkan koordinat (0–999).</p>
+          <div class="coord-row"><div class="field"><label for="x">Koordinat X</label><input id="x" type="number" min="0" max="999" value="500"></div><div class="field"><label for="y">Koordinat Y</label><input id="y" type="number" min="0" max="999" value="500"></div></div>
+          <button class="primary" id="addPixel">Tambah pixel pilihan</button>
+          <div class="selection-list" id="selectionList"><div class="empty">Belum ada pixel dipilih.</div></div>
+          <div class="summary"><span>Jumlah pixel</span><strong id="count">0</strong></div><div class="summary total"><span>Total harga</span><strong id="total">Rp0</strong></div>
+          <button class="primary" id="order">Lanjutkan pemesanan</button>
+          <div class="notice"><b>Catatan:</b> Ini adalah prototipe tampilan. Pembayaran dan penyimpanan pesanan online belum diaktifkan, jadi pilihan hanya tersimpan di browser ini.</div>
+        </div>
+        <div class="panel how"><h3>Cara memilih</h3><ol><li>Perbesar kanvas dengan tombol + atau gulir mouse.</li><li>Klik posisi yang diinginkan, atau isi koordinat X dan Y.</li><li>Periksa jumlah dan total harga sebelum melanjutkan.</li></ol></div>
+      </aside>
+    </section>
+  </main>
+  <footer class="footer">Pixel Market · Kanvas 1.000.000 pixel · Rp1.000 per pixel</footer>
+  <div class="toast" id="toast" role="status"></div>
+  <script>
+    (()=>{
+      const SIZE=1000, PRICE=1000, KEY='pixel-market-selection-v1';
+      const canvas=document.getElementById('art'), ctx=canvas.getContext('2d',{alpha:false});
+      const scroll=document.getElementById('canvasScroll'), zoomLabel=document.getElementById('zoomLabel');
+      const xInput=document.getElementById('x'), yInput=document.getElementById('y');
+      let zoom=.6, pixels=[];
+      try{pixels=JSON.parse(localStorage.getItem(KEY)||'[]').filter(p=>Number.isInteger(p.x)&&Number.isInteger(p.y)&&p.x>=0&&p.x<SIZE&&p.y>=0&&p.y<SIZE)}catch{}
+      const keyOf=(x,y)=>`${x},${y}`;
+      const has=(x,y)=>pixels.some(p=>p.x===x&&p.y===y);
+      function draw(){
+        ctx.fillStyle='#f0eee7';ctx.fillRect(0,0,SIZE,SIZE);
+        // Motif contoh yang lembut agar kanvas tidak tampak kosong; pixel tetap dapat dipilih.
+        ctx.fillStyle='#e7e4dc';ctx.fillRect(90,110,180,180);ctx.fillRect(720,680,190,190);
+        ctx.fillStyle='#ddd9cf';ctx.fillRect(135,155,90,90);ctx.fillRect(770,730,90,90);
+        ctx.fillStyle='#c9d8b8';ctx.fillRect(390,260,220,110);ctx.fillRect(300,690,120,190);
+        ctx.fillStyle='#f6d2d7';ctx.fillRect(650,170,140,200);ctx.fillStyle='#d5d9ef';ctx.fillRect(190,570,190,70);
+        for(const p of pixels){ctx.fillStyle='#a9ed58';ctx.fillRect(p.x,p.y,1,1)}
+        if(zoom>=3){ctx.beginPath();ctx.strokeStyle='rgba(25,27,30,.20)';ctx.lineWidth=1;for(let i=0;i<=SIZE;i++){ctx.moveTo(i,0);ctx.lineTo(i,SIZE);ctx.moveTo(0,i);ctx.lineTo(SIZE,i)}ctx.stroke()}
+        canvas.style.width=`${SIZE*zoom}px`;canvas.style.height=`${SIZE*zoom}px`;zoomLabel.textContent=`${Math.round(zoom*100)}%`;
+        document.getElementById('selectionList').innerHTML=pixels.length?pixels.map(p=>`<span class="chip">(${p.x}, ${p.y})</span>`).join(''):'<div class="empty">Belum ada pixel dipilih.</div>';
+        document.getElementById('count').textContent=pixels.length.toLocaleString('id-ID');
+        document.getElementById('total').textContent=rupiah(pixels.length*PRICE);
+        localStorage.setItem(KEY,JSON.stringify(pixels));
+      }
+      function rupiah(n){return new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(n)}
+      let toastTimer;function toast(text){const t=document.getElementById('toast');t.textContent=text;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),2300)}
+      function add(x,y){if(!Number.isInteger(x)||!Number.isInteger(y)||x<0||y<0||x>=SIZE||y>=SIZE){toast('Koordinat harus antara 0 dan 999.');return}if(has(x,y)){toast('Pixel itu sudah ada di pilihanmu.');return}pixels.push({x,y});draw();toast(`Pixel (${x}, ${y}) ditambahkan.`)}
+      document.getElementById('addPixel').addEventListener('click',()=>add(Number(xInput.value),Number(yInput.value)));
+      canvas.addEventListener('click',e=>{const r=canvas.getBoundingClientRect();const x=Math.min(SIZE-1,Math.floor((e.clientX-r.left)/r.width*SIZE));const y=Math.min(SIZE-1,Math.floor((e.clientY-r.top)/r.height*SIZE));xInput.value=x;yInput.value=y;document.getElementById('coords').textContent=`Koordinat: (${x}, ${y})`;add(x,y)});
+      function setZoom(z){zoom=Math.max(.25,Math.min(12,z));draw();scroll.classList.toggle('center',zoom*SIZE<=scroll.clientWidth-36&&zoom*SIZE<=scroll.clientHeight-36)}
+      document.getElementById('zoomIn').onclick=()=>setZoom(zoom*1.35);document.getElementById('zoomOut').onclick=()=>setZoom(zoom/1.35);document.getElementById('fit').onclick=()=>setZoom(Math.min(.8,(scroll.clientWidth-36)/SIZE));
+      canvas.addEventListener('wheel',e=>{if(e.ctrlKey||e.metaKey){e.preventDefault();setZoom(zoom*(e.deltaY<0?1.15:1/1.15))}},{passive:false});
+      document.getElementById('order').onclick=()=>{if(!pixels.length){toast('Pilih setidaknya satu pixel terlebih dahulu.');return}alert(`Ringkasan pesanan\n${pixels.length} pixel × Rp1.000 = ${rupiah(pixels.length*PRICE)}\n\nPemesanan online belum aktif. Pilihanmu tersimpan di browser ini.`)};
+      window.addEventListener('resize',()=>scroll.classList.toggle('center',zoom*SIZE<=scroll.clientWidth-36&&zoom*SIZE<=scroll.clientHeight-36));draw();
+    })();
+  </script>
+</body>
+</html>
