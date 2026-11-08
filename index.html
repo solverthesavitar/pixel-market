@@ -1,77 +1,874 @@
 <!doctype html>
 <html lang="id">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#101114">
-  <title>Pixel Market — Beli ruang di kanvas</title>
-  <style>
-    :root{color-scheme:dark;--bg:#101114;--panel:#191a20;--muted:#a3a5b1;--text:#f7f7fa;--accent:#b7f36b;--line:#30313a;--pink:#ff8fba}
-    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}button,input{font:inherit}button{cursor:pointer}.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px max(22px,calc((100vw - 1180px)/2));border-bottom:1px solid var(--line)}.brand{font-weight:850;font-size:20px;letter-spacing:-.7px}.brand span{color:var(--accent)}.top-note{color:var(--muted);font-size:13px}.wrap{max-width:1180px;margin:auto;padding:36px 22px 60px}.hero{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:26px}.eyebrow{color:var(--accent);font-size:12px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase}.hero h1{font-size:clamp(32px,5vw,54px);line-height:1.05;letter-spacing:-2px;margin:9px 0 10px}.hero p{margin:0;color:var(--muted);max-width:600px}.price-tag{flex:none;padding:13px 17px;border:1px solid #536a3b;background:#20291a;border-radius:14px;text-align:right}.price-tag strong{display:block;color:var(--accent);font-size:22px}.price-tag small{color:var(--muted)}.layout{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(290px,.8fr);gap:20px;align-items:start}.panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;overflow:hidden}.panel-head{padding:17px 19px;display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid var(--line)}.panel-head h2{font-size:16px;margin:0}.tools{display:flex;align-items:center;gap:8px}.tool-btn{border:1px solid var(--line);background:#22232a;color:var(--text);border-radius:9px;padding:6px 11px}.zoom-label{color:var(--muted);font-size:12px;min-width:42px;text-align:center}.canvas-scroll{height:min(68vh,660px);min-height:360px;overflow:auto;background:#111216;display:flex;align-items:flex-start;justify-content:flex-start;padding:18px}.canvas-scroll.center{justify-content:center;align-items:center}canvas{display:block;max-width:none;image-rendering:pixelated;border-radius:4px;box-shadow:0 8px 36px #0008;cursor:crosshair}.canvas-foot{display:flex;justify-content:space-between;gap:12px;padding:12px 18px;color:var(--muted);font-size:12px;border-top:1px solid var(--line)}.legend{display:flex;align-items:center;gap:7px}.dot{width:10px;height:10px;border-radius:3px;background:var(--accent)}.side{display:grid;gap:16px}.box{padding:19px}.box h2{font-size:17px;margin:0 0 5px}.muted{color:var(--muted);font-size:13px;margin:0 0 16px}.coord-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field label{display:block;color:var(--muted);font-size:12px;margin-bottom:6px}.field input{width:100%;padding:11px 12px;color:var(--text);background:#111216;border:1px solid var(--line);border-radius:10px;outline:none}.field input:focus{border-color:var(--accent)}.primary{width:100%;border:0;border-radius:11px;padding:12px 15px;background:var(--accent);color:#18200e;font-weight:850;margin-top:12px}.primary:hover{filter:brightness(1.06)}.summary{display:flex;justify-content:space-between;gap:12px;padding:9px 0;color:var(--muted);font-size:14px}.summary strong{color:var(--text)}.total{border-top:1px solid var(--line);margin-top:5px;padding-top:14px;font-size:16px}.total strong{color:var(--accent);font-size:20px}.selection-list{max-height:155px;overflow:auto;display:flex;flex-wrap:wrap;gap:7px;margin:12px 0}.chip{padding:5px 8px;border:1px solid #435632;background:#20291a;color:#d9f8b4;border-radius:7px;font-size:11px}.empty{color:var(--muted);font-size:13px;padding:10px 0}.notice{font-size:12px;color:var(--muted);background:#22232a;padding:11px;border-radius:10px;margin-top:14px}.notice b{color:#fff}.how{padding:17px 19px}.how h3{margin:0 0 10px;font-size:14px}.how ol{margin:0;padding-left:19px;color:var(--muted);font-size:13px}.how li+li{margin-top:6px}.footer{text-align:center;color:var(--muted);font-size:12px;padding:26px 15px;border-top:1px solid var(--line)}.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#f7f7fa;color:#15161a;padding:10px 15px;border-radius:10px;box-shadow:0 8px 30px #0008;transition:.2s;z-index:5}.toast.show{opacity:1;transform:translate(-50%,0)}
-    @media(max-width:820px){.layout{grid-template-columns:1fr}.hero{align-items:flex-start;flex-direction:column}.price-tag{text-align:left}.canvas-scroll{height:55vh;min-height:300px}.top-note{display:none}}
-  </style>
-</head>
-<body>
-  <header class="topbar"><div class="brand">PIXEL<span>MARKET</span></div><div class="top-note">Kanvas milik bersama. Satu pixel, satu tempat.</div></header>
-  <main class="wrap">
-    <section class="hero"><div><div class="eyebrow">Kanvas digital 1000 × 1000</div><h1>Jadikan pixel-mu<br>bagian dari kanvas.</h1><p>Pilih koordinat yang kamu suka. Setiap kotak kecil adalah satu pixel yang bisa kamu pesan.</p></div><div class="price-tag"><strong>Rp1.000 <small style="font-size:14px">/ pixel</small></strong><small>Harga tetap, tanpa biaya tersembunyi</small></div></section>
-    <section class="layout">
-      <div class="panel">
-        <div class="panel-head"><h2>Kanvas Pixel Market</h2><div class="tools"><button class="tool-btn" id="zoomOut" aria-label="Perkecil">−</button><span class="zoom-label" id="zoomLabel">60%</span><button class="tool-btn" id="zoomIn" aria-label="Perbesar">+</button><button class="tool-btn" id="fit">Pas</button></div></div>
-        <div class="canvas-scroll center" id="canvasScroll"><canvas id="art" width="1000" height="1000" aria-label="Kanvas 1000 kali 1000 pixel"></canvas></div>
-        <div class="canvas-foot"><span class="legend"><i class="dot"></i> Pilihanmu</span><span id="coords">Klik kanvas untuk memilih pixel</span></div>
-      </div>
-      <aside class="side">
-        <div class="panel box"><h2>Pilih pixel</h2><p class="muted">Klik kanvas atau masukkan koordinat (0–999).</p>
-          <div class="coord-row"><div class="field"><label for="x">Koordinat X</label><input id="x" type="number" min="0" max="999" value="500"></div><div class="field"><label for="y">Koordinat Y</label><input id="y" type="number" min="0" max="999" value="500"></div></div>
-          <button class="primary" id="addPixel">Tambah pixel pilihan</button>
-          <div class="selection-list" id="selectionList"><div class="empty">Belum ada pixel dipilih.</div></div>
-          <div class="summary"><span>Jumlah pixel</span><strong id="count">0</strong></div><div class="summary total"><span>Total harga</span><strong id="total">Rp0</strong></div>
-          <button class="primary" id="order">Lanjutkan pemesanan</button>
-          <div class="notice"><b>Catatan:</b> Ini adalah prototipe tampilan. Pembayaran dan penyimpanan pesanan online belum diaktifkan, jadi pilihan hanya tersimpan di browser ini.</div>
-        </div>
-        <div class="panel how"><h3>Cara memilih</h3><ol><li>Perbesar kanvas dengan tombol + atau gulir mouse.</li><li>Klik posisi yang diinginkan, atau isi koordinat X dan Y.</li><li>Periksa jumlah dan total harga sebelum melanjutkan.</li></ol></div>
-      </aside>
-    </section>
-  </main>
-  <footer class="footer">Pixel Market · Kanvas 1.000.000 pixel · Rp1.000 per pixel</footer>
-  <div class="toast" id="toast" role="status"></div>
-  <script>
-    (()=>{
-      const SIZE=1000, PRICE=1000, KEY='pixel-market-selection-v1';
-      const canvas=document.getElementById('art'), ctx=canvas.getContext('2d',{alpha:false});
-      const scroll=document.getElementById('canvasScroll'), zoomLabel=document.getElementById('zoomLabel');
-      const xInput=document.getElementById('x'), yInput=document.getElementById('y');
-      let zoom=.6, pixels=[];
-      try{pixels=JSON.parse(localStorage.getItem(KEY)||'[]').filter(p=>Number.isInteger(p.x)&&Number.isInteger(p.y)&&p.x>=0&&p.x<SIZE&&p.y>=0&&p.y<SIZE)}catch{}
-      const keyOf=(x,y)=>`${x},${y}`;
-      const has=(x,y)=>pixels.some(p=>p.x===x&&p.y===y);
-      function draw(){
-        ctx.fillStyle='#f0eee7';ctx.fillRect(0,0,SIZE,SIZE);
-        // Motif contoh yang lembut agar kanvas tidak tampak kosong; pixel tetap dapat dipilih.
-        ctx.fillStyle='#e7e4dc';ctx.fillRect(90,110,180,180);ctx.fillRect(720,680,190,190);
-        ctx.fillStyle='#ddd9cf';ctx.fillRect(135,155,90,90);ctx.fillRect(770,730,90,90);
-        ctx.fillStyle='#c9d8b8';ctx.fillRect(390,260,220,110);ctx.fillRect(300,690,120,190);
-        ctx.fillStyle='#f6d2d7';ctx.fillRect(650,170,140,200);ctx.fillStyle='#d5d9ef';ctx.fillRect(190,570,190,70);
-        for(const p of pixels){ctx.fillStyle='#a9ed58';ctx.fillRect(p.x,p.y,1,1)}
-        if(zoom>=3){ctx.beginPath();ctx.strokeStyle='rgba(25,27,30,.20)';ctx.lineWidth=1;for(let i=0;i<=SIZE;i++){ctx.moveTo(i,0);ctx.lineTo(i,SIZE);ctx.moveTo(0,i);ctx.lineTo(SIZE,i)}ctx.stroke()}
-        canvas.style.width=`${SIZE*zoom}px`;canvas.style.height=`${SIZE*zoom}px`;zoomLabel.textContent=`${Math.round(zoom*100)}%`;
-        document.getElementById('selectionList').innerHTML=pixels.length?pixels.map(p=>`<span class="chip">(${p.x}, ${p.y})</span>`).join(''):'<div class="empty">Belum ada pixel dipilih.</div>';
-        document.getElementById('count').textContent=pixels.length.toLocaleString('id-ID');
-        document.getElementById('total').textContent=rupiah(pixels.length*PRICE);
-        localStorage.setItem(KEY,JSON.stringify(pixels));
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Pixel Market — beli ruang di kanvas 1000x1000 dengan harga Rp1.000 per pixel." />
+    <title>Pixel Market</title>
+    <style>
+      :root {
+        --bg: #0b0d12;
+        --bg-soft: #141922;
+        --panel: #171d28;
+        --panel-2: #1d2635;
+        --line: #2a3342;
+        --text: #f5f7fb;
+        --muted: #9ca7b8;
+        --accent: #9cff6e;
+        --accent-2: #6fe3ff;
+        --pink: #ff7ab6;
+        --gold: #ffd76e;
+        --shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
       }
-      function rupiah(n){return new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(n)}
-      let toastTimer;function toast(text){const t=document.getElementById('toast');t.textContent=text;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),2300)}
-      function add(x,y){if(!Number.isInteger(x)||!Number.isInteger(y)||x<0||y<0||x>=SIZE||y>=SIZE){toast('Koordinat harus antara 0 dan 999.');return}if(has(x,y)){toast('Pixel itu sudah ada di pilihanmu.');return}pixels.push({x,y});draw();toast(`Pixel (${x}, ${y}) ditambahkan.`)}
-      document.getElementById('addPixel').addEventListener('click',()=>add(Number(xInput.value),Number(yInput.value)));
-      canvas.addEventListener('click',e=>{const r=canvas.getBoundingClientRect();const x=Math.min(SIZE-1,Math.floor((e.clientX-r.left)/r.width*SIZE));const y=Math.min(SIZE-1,Math.floor((e.clientY-r.top)/r.height*SIZE));xInput.value=x;yInput.value=y;document.getElementById('coords').textContent=`Koordinat: (${x}, ${y})`;add(x,y)});
-      function setZoom(z){zoom=Math.max(.25,Math.min(12,z));draw();scroll.classList.toggle('center',zoom*SIZE<=scroll.clientWidth-36&&zoom*SIZE<=scroll.clientHeight-36)}
-      document.getElementById('zoomIn').onclick=()=>setZoom(zoom*1.35);document.getElementById('zoomOut').onclick=()=>setZoom(zoom/1.35);document.getElementById('fit').onclick=()=>setZoom(Math.min(.8,(scroll.clientWidth-36)/SIZE));
-      canvas.addEventListener('wheel',e=>{if(e.ctrlKey||e.metaKey){e.preventDefault();setZoom(zoom*(e.deltaY<0?1.15:1/1.15))}},{passive:false});
-      document.getElementById('order').onclick=()=>{if(!pixels.length){toast('Pilih setidaknya satu pixel terlebih dahulu.');return}alert(`Ringkasan pesanan\n${pixels.length} pixel × Rp1.000 = ${rupiah(pixels.length*PRICE)}\n\nPemesanan online belum aktif. Pilihanmu tersimpan di browser ini.`)};
-      window.addEventListener('resize',()=>scroll.classList.toggle('center',zoom*SIZE<=scroll.clientWidth-36&&zoom*SIZE<=scroll.clientHeight-36));draw();
-    })();
-  </script>
-</body>
+
+      * { box-sizing: border-box; }
+
+      html { scroll-behavior: smooth; }
+
+      body {
+        margin: 0;
+        font-family: Inter, "Segoe UI", sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(156, 255, 110, 0.12), transparent 30%),
+          radial-gradient(circle at top right, rgba(111, 227, 255, 0.12), transparent 30%),
+          var(--bg);
+        color: var(--text);
+      }
+
+      a { color: inherit; text-decoration: none; }
+      img { max-width: 100%; display: block; }
+      button, input { font: inherit; }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        backdrop-filter: blur(14px);
+        background: rgba(11, 13, 18, 0.7);
+        border-bottom: 1px solid rgba(255,255,255,0.07);
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 72px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .brand-mark {
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        display: grid;
+        place-items: center;
+        color: #0d1217;
+        font-size: 18px;
+        font-weight: 900;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .nav-links a:hover { color: var(--text); }
+
+      .cta {
+        border: none;
+        background: linear-gradient(135deg, var(--accent), #d3ff8f);
+        color: #101510;
+        font-weight: 900;
+        padding: 12px 20px;
+        border-radius: 12px;
+        box-shadow: 0 12px 30px rgba(156, 255, 110, 0.32);
+        cursor: pointer;
+      }
+
+      .hero {
+        padding: 60px 0 28px;
+      }
+
+      .hero-inner {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 30px;
+        align-items: center;
+      }
+
+      .eyebrow {
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      h1 {
+        font-size: clamp(2.7rem, 5vw, 5rem);
+        line-height: 0.96;
+        letter-spacing: -0.06em;
+        margin: 18px 0 16px;
+      }
+
+      .lead {
+        max-width: 640px;
+        color: var(--muted);
+        font-size: 1.06rem;
+        line-height: 1.7;
+      }
+
+      .hero-buttons {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-top: 28px;
+      }
+
+      .btn-primary, .btn-secondary {
+        border-radius: 14px;
+        padding: 14px 20px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        cursor: pointer;
+        transition: transform 0.2s ease, filter 0.2s ease;
+      }
+
+      .btn-primary:hover, .btn-secondary:hover, .cta:hover { transform: translateY(-1px); filter: brightness(1.04); }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--accent), #d9ff95);
+        color: #121912;
+        border: none;
+      }
+
+      .btn-secondary {
+        background: rgba(255,255,255,0.02);
+        color: var(--text);
+        border: 1px solid var(--line);
+      }
+
+      .hero-card {
+        background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+        border: 1px solid var(--line);
+        border-radius: 26px;
+        padding: 24px;
+        box-shadow: var(--shadow);
+      }
+
+      .mini-tag {
+        display: inline-flex;
+        padding: 7px 10px;
+        border-radius: 999px;
+        background: rgba(156,255,110,0.12);
+        color: var(--accent);
+        border: 1px solid rgba(156,255,110,0.2);
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .price-box {
+        margin-top: 18px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        border-top: 1px solid var(--line);
+        padding-top: 18px;
+      }
+
+      .price-box strong {
+        font-size: 2.6rem;
+        letter-spacing: -0.06em;
+        display: block;
+      }
+
+      .price-box span {
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+        margin-top: 30px;
+      }
+
+      .stat {
+        background: rgba(255,255,255,0.01);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 18px 16px;
+      }
+
+      .stat strong {
+        display: block;
+        font-size: 1.5rem;
+        letter-spacing: -0.04em;
+      }
+
+      .stat span {
+        color: var(--muted);
+        font-size: 0.86rem;
+      }
+
+      main { padding-bottom: 80px; }
+
+      .inventory {
+        padding-top: 26px;
+      }
+
+      .section-head {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+
+      .section-head h2 {
+        margin: 0;
+        font-size: clamp(1.8rem, 2.5vw, 2.8rem);
+        letter-spacing: -0.06em;
+      }
+
+      .section-head span {
+        color: var(--muted);
+      }
+
+      .canvas-wrap {
+        display: grid;
+        grid-template-columns: minmax(0, 1.5fr) minmax(320px, 0.8fr);
+        gap: 22px;
+        align-items: start;
+      }
+
+      .panel {
+        background: rgba(255,255,255,0.02);
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+      }
+
+      .panel-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 14px;
+        padding: 18px 20px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .panel-top h3 {
+        margin: 0;
+        font-size: 1.08rem;
+      }
+
+      .toolbar {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .toolbar button {
+        background: rgba(255,255,255,0.02);
+        color: var(--text);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        width: 34px;
+        height: 34px;
+        font-size: 1.2rem;
+        cursor: pointer;
+      }
+
+      .zoom-label {
+        min-width: 52px;
+        text-align: center;
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      .canvas-shell {
+        padding: 18px;
+        background: #0d1017;
+      }
+
+      .canvas-scroll {
+        width: 100%;
+        overflow: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 520px;
+        padding: 8px;
+      }
+
+      canvas {
+        display: block;
+        image-rendering: pixelated;
+        cursor: crosshair;
+        box-shadow: 0 14px 40px rgba(0, 0, 0, 0.4);
+        border-radius: 4px;
+      }
+
+      .canvas-meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 8px;
+        font-size: 0.8rem;
+        color: var(--muted);
+        padding: 12px 18px 18px;
+        border-top: 1px solid var(--line);
+      }
+
+      .legend {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 4px;
+        background: var(--accent);
+        display: inline-block;
+      }
+
+      .side-card {
+        display: grid;
+        gap: 18px;
+      }
+
+      .card {
+        background: rgba(255,255,255,0.02);
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        padding: 22px;
+        box-shadow: var(--shadow);
+      }
+
+      .card h3 {
+        margin: 0 0 8px;
+        font-size: 1.3rem;
+        letter-spacing: -0.04em;
+      }
+
+      .subtle {
+        margin: 0 0 18px;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .coords {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      .field {
+        display: grid;
+        gap: 8px;
+      }
+
+      .field label {
+        color: var(--muted);
+        font-size: 0.8rem;
+      }
+
+      .field input {
+        width: 100%;
+        background: rgba(0,0,0,0.18);
+        border: 1px solid var(--line);
+        color: var(--text);
+        border-radius: 12px;
+        padding: 12px 14px;
+        outline: none;
+      }
+
+      .field input:focus {
+        border-color: rgba(156,255,110,0.8);
+        box-shadow: 0 0 0 3px rgba(156,255,110,0.12);
+      }
+
+      .full-btn {
+        width: 100%;
+        border: none;
+        border-radius: 14px;
+        background: linear-gradient(135deg, var(--accent), #d9ff95);
+        color: #111b11;
+        font-weight: 900;
+        padding: 14px 18px;
+        cursor: pointer;
+        margin-top: 14px;
+      }
+
+      .selection {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        min-height: 54px;
+        margin: 14px 0 10px;
+      }
+
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        background: rgba(156,255,110,0.1);
+        color: #d9fbb8;
+        border: 1px solid rgba(156,255,110,0.25);
+        border-radius: 999px;
+        padding: 7px 9px;
+        font-size: 0.75rem;
+        font-weight: 700;
+      }
+
+      .empty {
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .summary {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 0;
+        color: var(--muted);
+      }
+
+      .summary strong {
+        color: var(--text);
+      }
+
+      .summary.total {
+        padding-top: 14px;
+        border-top: 1px solid var(--line);
+        margin-top: 4px;
+      }
+
+      .summary.total strong {
+        color: var(--accent);
+        font-size: 1.25rem;
+      }
+
+      .notice {
+        background: rgba(255,255,255,0.02);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 12px 13px;
+        color: var(--muted);
+        font-size: 0.83rem;
+        line-height: 1.6;
+      }
+
+      .notice b { color: var(--text); }
+
+      .steps {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        gap: 10px;
+        color: var(--muted);
+      }
+
+      .steps li {
+        position: relative;
+        padding-left: 22px;
+        line-height: 1.6;
+      }
+
+      .steps li::before {
+        content: "•";
+        position: absolute;
+        left: 0;
+        color: var(--accent);
+        font-size: 1.4rem;
+        top: -2px;
+      }
+
+      .toast {
+        position: fixed;
+        left: 50%;
+        bottom: 24px;
+        transform: translate(-50%, 20px);
+        opacity: 0;
+        pointer-events: none;
+        background: #edf5ee;
+        color: #101710;
+        padding: 10px 16px;
+        border-radius: 12px;
+        font-weight: 700;
+        box-shadow: var(--shadow);
+        transition: 0.2s ease;
+      }
+
+      .toast.show {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+
+      .footer {
+        border-top: 1px solid rgba(255,255,255,0.06);
+        padding: 24px 0 46px;
+        color: var(--muted);
+        text-align: center;
+        font-size: 0.88rem;
+      }
+
+      @media (max-width: 980px) {
+        .hero-inner, .canvas-wrap { grid-template-columns: 1fr; }
+        .nav-links { display: none; }
+      }
+
+      @media (max-width: 640px) {
+        .stats { grid-template-columns: 1fr; }
+        .coords { grid-template-columns: 1fr; }
+        .hero-buttons { flex-direction: column; align-items: stretch; }
+        .btn-primary, .btn-secondary { width: 100%; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container nav">
+        <div class="brand">
+          <span class="brand-mark">P</span>
+          <span>Pixel Market</span>
+        </div>
+
+        <nav class="nav-links">
+          <a href="#jual">Jual</a>
+          <a href="#kanvas">Kanvas</a>
+          <a href="#cara">Cara kerja</a>
+          <a href="#kontak">Kontak</a>
+        </nav>
+
+        <button class="cta">Beli Sekarang</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-inner">
+          <div>
+            <div class="eyebrow">Kanvas digital untuk semua</div>
+            <h1>Bangun citra <br />kamu di ruang pixel.</h1>
+            <p class="lead">
+              Setiap pixel bernilai Rp1.000. Pilih area tertentu di kanvas 1000 × 1000, dan jadikan bagian dari karya digital yang unik, personal, dan siap dibeli.
+            </p>
+
+            <div class="hero-buttons">
+              <button class="btn-primary" onclick="document.getElementById('kanvas').scrollIntoView({behavior:'smooth'})">Pilih Pixel</button>
+              <button class="btn-secondary">Lihat Demo</button>
+            </div>
+
+            <div class="stats">
+              <div class="stat">
+                <strong>1,000,000</strong>
+                <span>total pixel tersedia</span>
+              </div>
+              <div class="stat">
+                <strong>Rp1.000</strong>
+                <span>harga per pixel</span>
+              </div>
+              <div class="stat">
+                <strong>100%</strong>
+                <span>transparan dan fleksibel</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-card">
+            <span class="mini-tag">Promo</span>
+            <div class="price-box">
+              <div>
+                <span>Harga saat ini</span>
+                <strong>Rp1.000</strong>
+              </div>
+              <div>
+                <span>Per pixel</span>
+                <strong style="font-size:1.2rem; color: var(--accent);">1000 × 1000</strong>
+              </div>
+            </div>
+            <p class="lead" style="margin-top:18px; margin-bottom:0; font-size:0.96rem;">
+              Satu pixel bisa jadi awal karya besar. Pilih lokasi favoritmu dan bayangkan hasil akhirnya di kanvas digital.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="inventory container" id="kanvas">
+        <div class="section-head">
+          <h2>Pilih pixel favoritmu</h2>
+          <span>Harga tetap untuk semua area</span>
+        </div>
+
+        <div class="canvas-wrap">
+          <div class="panel">
+            <div class="panel-top">
+              <h3>Kanvas Pixel</h3>
+              <div class="toolbar">
+                <button id="zoomOut" aria-label="Kurangi zoom">−</button>
+                <span class="zoom-label" id="zoomLabel">60%</span>
+                <button id="zoomIn" aria-label="Tambah zoom">+</button>
+              </div>
+            </div>
+
+            <div class="canvas-shell">
+              <div class="canvas-scroll" id="canvasScroll">
+                <canvas id="pixelCanvas" width="1000" height="1000" aria-label="Kanvas Pixel 1000x1000"></canvas>
+              </div>
+            </div>
+
+            <div class="canvas-meta">
+              <span class="legend"><i class="dot"></i>Pixel yang dipilih</span>
+              <span id="coordsText">Klik kanvas untuk memilih pixel</span>
+            </div>
+          </div>
+
+          <div class="side-card">
+            <div class="card">
+              <h3>Detail pemesanan</h3>
+              <p class="subtle">Masukkan koordinat atau klik langsung di kanvas.</p>
+
+              <div class="coords">
+                <div class="field">
+                  <label for="xValue">X</label>
+                  <input id="xValue" type="number" min="0" max="999" value="500" />
+                </div>
+                <div class="field">
+                  <label for="yValue">Y</label>
+                  <input id="yValue" type="number" min="0" max="999" value="500" />
+                </div>
+              </div>
+
+              <button class="full-btn" id="addPixelBtn">Tambah pixel</button>
+
+              <div class="selection" id="selectionList">
+                <span class="empty">Belum ada pixel yang dipilih.</span>
+              </div>
+
+              <div class="summary">
+                <span>Jumlah pixel</span>
+                <strong id="countValue">0</strong>
+              </div>
+              <div class="summary total">
+                <span>Total</span>
+                <strong id="totalValue">Rp0</strong>
+              </div>
+
+              <button class="full-btn" id="checkoutBtn" style="margin-top:18px;">Lanjutkan checkout</button>
+
+              <div class="notice" style="margin-top:18px;">
+                <b>Catatan:</b> Ini adalah prototype website untuk presentasi awal. Pemesanan dibuat secara lokal di browser untuk demonstrasi.
+              </div>
+            </div>
+
+            <div class="card" id="cara">
+              <h3>Cara kerjanya</h3>
+              <ul class="steps">
+                <li>Pilih koordinat X dan Y, atau klik langsung area yang diinginkan di kanvas.</li>
+                <li>Setiap pixel yang dipilih akan masuk ke daftar belanja.</li>
+                <li>Total dihitung otomatis dengan harga tetap Rp1.000 per pixel.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer" id="kontak">Pixel Market • Semua hak cipta dilindungi • Harga: Rp1.000 / pixel</footer>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script>
+      (() => {
+        const canvas = document.getElementById('pixelCanvas');
+        const ctx = canvas.getContext('2d');
+        const zoomLabel = document.getElementById('zoomLabel');
+        const canvasScroll = document.getElementById('canvasScroll');
+        const xInput = document.getElementById('xValue');
+        const yInput = document.getElementById('yValue');
+        const coordsText = document.getElementById('coordsText');
+        const selectionList = document.getElementById('selectionList');
+        const countValue = document.getElementById('countValue');
+        const totalValue = document.getElementById('totalValue');
+        const PRICE = 1000;
+        const STORAGE_KEY = 'pixel-market-selection-v2';
+        let zoom = 0.6;
+        let selected = [];
+
+        try {
+          const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+          if (Array.isArray(stored)) selected = stored.filter(p => Number.isInteger(p.x) && Number.isInteger(p.y) && p.x >= 0 && p.x < 1000 && p.y >= 0 && p.y < 1000);
+        } catch {}
+
+        function formatRupiah(value) {
+          return new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+            maximumFractionDigits: 0
+          }).format(value);
+        }
+
+        function saveSelection() {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(selected));
+        }
+
+        function contains(x, y) {
+          return selected.some(p => p.x === x && p.y === y);
+        }
+
+        function updateListUI() {
+          if (!selected.length) {
+            selectionList.innerHTML = '<span class="empty">Belum ada pixel yang dipilih.</span>';
+          } else {
+            selectionList.innerHTML = selected.map(p => `<span class="chip">(${p.x}, ${p.y})</span>`).join('');
+          }
+
+          const total = selected.length * PRICE;
+          countValue.textContent = String(selected.length);
+          totalValue.textContent = formatRupiah(total);
+          saveSelection();
+        }
+
+        function drawCanvas() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.fillStyle = '#f3f5ef';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+          ctx.fillStyle = '#e5e0d2';
+          ctx.fillRect(110, 120, 190, 180);
+          ctx.fillRect(620, 650, 220, 200);
+          ctx.fillRect(340, 260, 220, 120);
+          ctx.fillRect(700, 150, 150, 210);
+
+          ctx.fillStyle = '#dcd7ef';
+          ctx.fillRect(170, 460, 160, 150);
+          ctx.fillStyle = '#bfe6c7';
+          ctx.fillRect(540, 430, 170, 90);
+
+          for (const p of selected) {
+            ctx.fillStyle = '#93ea5d';
+            ctx.fillRect(p.x, p.y, 1, 1);
+          }
+
+          ctx.strokeStyle = 'rgba(20, 22, 26, 0.12)';
+          ctx.lineWidth = 1;
+          for (let i = 0; i <= 1000; i += 20) {
+            ctx.beginPath();
+            ctx.moveTo(i, 0);
+            ctx.lineTo(i, 1000);
+            ctx.moveTo(0, i);
+            ctx.lineTo(1000, i);
+            ctx.stroke();
+          }
+
+          canvas.style.width = `${1000 * zoom}px`;
+          canvas.style.height = `${1000 * zoom}px`;
+          zoomLabel.textContent = `${Math.round(zoom * 100)}%`;
+        }
+
+        function toast(message) {
+          const el = document.getElementById('toast');
+          el.textContent = message;
+          el.classList.add('show');
+          clearTimeout(toast._timer);
+          toast._timer = setTimeout(() => el.classList.remove('show'), 2200);
+        }
+
+        function addPixel(x, y) {
+          if (!Number.isInteger(x) || !Number.isInteger(y) || x < 0 || y < 0 || x >= 1000 || y >= 1000) {
+            toast('Koordinat harus berada di rentang 0-999.');
+            return;
+          }
+
+          if (contains(x, y)) {
+            toast('Pixel ini sudah dipilih.');
+            return;
+          }
+
+          selected.push({ x, y });
+          updateListUI();
+          drawCanvas();
+          toast(`Pixel (${x}, ${y}) ditambahkan.`);
+        }
+
+        document.getElementById('addPixelBtn').addEventListener('click', () => {
+          const x = Number(xInput.value);
+          const y = Number(yInput.value);
+          addPixel(x, y);
+        });
+
+        canvas.addEventListener('click', (event) => {
+          const rect = canvas.getBoundingClientRect();
+          const x = Math.min(999, Math.max(0, Math.floor(((event.clientX - rect.left) / rect.width) * 1000)));
+          const y = Math.min(999, Math.max(0, Math.floor(((event.clientY - rect.top) / rect.height) * 1000)));
+          xInput.value = x;
+          yInput.value = y;
+          coordsText.textContent = `Koordinat aktif: (${x}, ${y})`;
+          addPixel(x, y);
+        });
+
+        document.getElementById('zoomIn').addEventListener('click', () => {
+          zoom = Math.min(1.8, zoom * 1.25);
+          drawCanvas();
+        });
+
+        document.getElementById('zoomOut').addEventListener('click', () => {
+          zoom = Math.max(0.3, zoom / 1.25);
+          drawCanvas();
+        });
+
+        document.getElementById('checkoutBtn').addEventListener('click', () => {
+          if (!selected.length) {
+            toast('Pilih setidaknya satu pixel dulu.');
+            return;
+          }
+          const total = selected.length * PRICE;
+          alert(`Pemesanan Pixel Market\nJumlah pixel: ${selected.length}\nTotal: ${formatRupiah(total)}`);
+        });
+
+        canvasScroll.addEventListener('wheel', (event) => {
+          event.preventDefault();
+          if (event.deltaY < 0) {
+            zoom = Math.min(1.8, zoom * 1.1);
+          } else {
+            zoom = Math.max(0.3, zoom / 1.1);
+          }
+          drawCanvas();
+        }, { passive: false });
+
+        updateListUI();
+        drawCanvas();
+      })();
+    </script>
+  </body>
 </html>
